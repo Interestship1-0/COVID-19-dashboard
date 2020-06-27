@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Corona Virus Tracker</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css">
+    <link href='https://fonts.googleapis.com/css?family=Aclonica' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+body {
+    font-family: 'Aclonica';font-size: 13px;
+
+}
+</style>
+</head>
+<body class="p-3" style=" background-image: #66ffb3;">
+<div class="jumbotron jumbotron-fluid grad">
+    <div class="container">
+        <h1>Corona Virus Tracker</h1>
+        <p class="lead">It fetches the Live Corona Cases Updates from API</p>
+    </div>
+</div>
+<div class="container-fluid">
+<div class="row">
+    <div class="col-4" >
+            <div class="card card-body"  style="font-family: 'Aclonica'; border-radius: 25px;background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);">
+                <h1 class="text-white">Quick facts</h1>
+                <h3 class="text-white">Total Reported Cases</h3>
+                <h2 class="text-secondary" th:text="${totalReportedCases}">0</h2>
+                <h3 class="text-white">Total New Cases</h3>
+                <h2 class="text-warning" th:text="${totalNewCases}">0</h2>
+                <h3 class="text-white" >Total Death Cases</h3>
+                <h2 class="text-danger" th:text="${totalDeathCases}">0</h2>
+                <h3 class="text-white">Total Recovery Cases</h3>
+                <h2 class="text-success" th:text="${totalRecoveryCases}">0</h2>
+            </div>
+     <img src="https://media1.tenor.com/images/f841ec1fac4b581baf2dde568f231f68/tenor.gif?itemid=16678450">
+
+
+    </div>
+    <div class="col-5 rcorners1" style="background-image:#FF6F91;" >
+        <div class="container" style="overflow: auto;height: 1000px;">
+        <table class="table table-striped" >
+            <thead>
+            <tr>
+                <th>Country</th>
+                <th>Cases</th>
+                <th>DeathCases</th>
+                <th>RecoveryCases</th>
+                <th>View</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="c : ${CountryStat}">
+                <td class="text-pink" th:text="${c.country}"></td>
+                <td class="text-warning" th:text="${c.cases}">0</td>
+                <td class="text-danger" th:text="${c.deaths}">0</td>
+                <td class="text-success" th:text="${c.recovered}">0</td>
+                <td><a th:href="@{'/user/' + ${c.country}}">View</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="col-3" style="background-image: linear-gradient(to left bottom, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);" >
+        <h2>CORONA-VIRUS <br> SYMPTOMS</h2>
+        <img src="https://www.gstatic.com/healthricherkp/covidsymptoms/light_fever.gif">
+        <img src="https://www.gstatic.com/healthricherkp/covidsymptoms/light_cough.gif">
+        <img src="https://www.gstatic.com/healthricherkp/covidsymptoms/light_tiredness.gif">
+        <div>
+            <h3>Most common symptoms:</h3>
+            <ul>
+                <li>fever</li>
+                <li>dry cough</li>
+                <li>tiredness</li>
+            </ul>
+
+            <h3>Less common symptoms:</h3>
+            <ul>
+                <li>aches and pains</li>
+                <li>sore throat</li>
+                <li>diarrhoea</li>
+                <li>conjunctivitis</li>
+                <li>headache</li>
+                <li>loss of taste or smell</li>
+                <li>a rash on skin</li>
+            </ul>
+            <h3>Serious symptoms:</h3>
+            <ul>
+                <li>difficulty breathing or shortness of breath</li>
+                <li>chest pain or pressure</li>
+                <li>loss of speech or movement</li>
+            </ul>
+            <p>
+                People with mild symptoms who are otherwise healthy should manage their symptoms at home.
+                On average it takes 5–6 days from when someone is infected with the virus for symptoms to show, however it can take up to 14 days.</p>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>

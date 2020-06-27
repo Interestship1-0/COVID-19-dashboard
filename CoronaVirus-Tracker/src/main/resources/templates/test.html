@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1" />
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="main.css">
+    <!-- Optional theme -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+</head>
+<body style="background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);">
+<div class="container">
+    <h2 align="center">Country-Wise-Tracker</h2>
+    <div id="container"
+         style="width: 550px; height: 400px; margin: 0 auto"></div>
+</div>
+<script
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script th:inline="javascript">
+  $(function(){
+  Highcharts.chart('container', {
+
+
+  chart: {
+    type: 'column'
+  },
+
+  title: {
+    text: 'CORONA-VIRUS-TRACKER'
+  },
+
+  subtitle: {
+    text: 'Fetches the Data and plotted on Graph'
+  },
+
+  legend: {
+    align: 'right',
+    verticalAlign: 'middle',
+    layout: 'vertical'
+  },
+
+  xAxis: {
+    categories: [[${statewiseList}]],
+    labels: {
+      x: -10
+    }
+  },
+
+  yAxis: {
+    allowDecimals: false,
+    title: {
+      text: 'Affected'
+    }
+  },
+
+  series: [{
+        name: 'Confirmed',
+        data: [[${caseswiseList}]]
+    }, {
+        name: 'Death',
+        data: [[${deathwiseList}]]
+    }, {
+        name: 'Recovery',
+        data: [[${recoverywiseList}]]
+    }],
+
+  responsive: {
+    rules: [{
+      condition: {
+        maxWidth: 2000
+      },
+      chartOptions: {
+        legend: {
+          align: 'center',
+          verticalAlign: 'bottom',
+          layout: 'horizontal'
+        },
+        yAxis: {
+          labels: {
+            align: 'left',
+            x: 0,
+            y: -5
+          },
+          title: {
+            text: null
+          }
+        },
+        subtitle: {
+          text: null
+        },
+        credits: {
+          enabled: false
+        }
+      }
+    }]
+  }
+});
+});
+</script>
+<div>
+         <h2>Difference on the Basis of Previous Day</h2>
+    <table class="table" >
+        <tr>
+            <th>State</th>
+            <th> Cases Reported</th>
+            <th> Cases Difference</th>
+            <th> Latest DeathCases Reported</th>
+            <th>Death Difference</th>
+            <th> Latest RecoveryCases Reported</th>
+            <th>Recovery Difference</th>
+        </tr>
+        <tr th:each="cd : ${countrycdr}">
+            <td th:text="${cd.state}">Unknown</td>
+            <td th:text="${cd.cases}"></td>
+            <td th:text="${cd.prevcase}"></td>
+            <td th:text="${cd.death}">0</td>
+            <td th:text="${cd.prevdeath}">0</td>
+            <td th:text="${cd.recovery}">0</td>
+            <td th:text="${cd.prevrecover}">0</td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

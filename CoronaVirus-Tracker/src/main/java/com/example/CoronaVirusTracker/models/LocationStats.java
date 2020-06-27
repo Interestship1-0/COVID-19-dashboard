@@ -7,6 +7,9 @@ public class LocationStats {
     private int latestTotalCases;
     private int diffFromPrevDay;
 
+    public LocationStats() {
+    }
+
     public int getDiffFromPrevDay() {
         return diffFromPrevDay;
     }

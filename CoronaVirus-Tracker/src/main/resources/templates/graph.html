@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Corona Virus Tracker</title>
+    <title>Title</title>
+
+
+</head>
+<body>
+<script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<canvas id="chart" width="400" height="400"></canvas>
+
+<script th:inline="javascript">
+		window.onload = function() {
+		/*<![CDATA[*/
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myBar = new Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					title: {
+						display: true,
+						text: 'Chart.js Bar Chart - Stacked'
+					},
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					responsive: true,
+					scales: {
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes: [{
+							stacked: true
+						}]
+					}
+				}
+			});
+		};
+		var barChartData = {
+			labels: [],
+			datasets: [{
+				label: 'Dataset 1',
+				backgroundColor: window.chartColors.red,
+				data: [
+				]
+			}, {
+				label: 'Dataset 2',
+				backgroundColor: window.chartColors.blue,
+				data: [
+				]
+			}, {
+				label: 'Dataset 3',
+				backgroundColor: window.chartColors.green,
+				data: [
+				]
+			}]
+
+		};
+	</script>
+
+<script th:inline="javascript">
+/*<![CDATA[*/
+window.onload = function() {
+    var barChartData = {
+			labels: /*[[${statewiseList}]]*/,
+			datasets: [{
+				label: 'Cases',
+				backgroundColor: window.chartColors.red,
+				data: /*[[${caseswiseList}]]*/ []
+			}, {
+				label: 'Death',
+				backgroundColor: window.chartColors.blue,
+				data: /*[[${deathwiseList}]]*/ []
+			}, {
+				label: 'Recovery',
+				backgroundColor: window.chartColors.green,
+				data: /*[[${recoverywiseList}]]*/[]
+			}]
+		};
+
+/*]]>*/
+</script>
+
+<div>
+    <table class="table" >
+        <tr>
+            <th>State</th>
+            <th> Cases Reported</th>
+            <th> Latest DeathCases Reported</th>
+            <th> Latest RecoveryCases Reported</th>
+        </tr>
+        <tr th:each="cd : ${countrycdr}">
+            <td th:text="${cd.state}">Unknown</td>
+            <td th:text="${cd.cases}"></td>
+            <td th:text="${cd.death}">0</td>
+            <td th:text="${cd.recovery}">0</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
